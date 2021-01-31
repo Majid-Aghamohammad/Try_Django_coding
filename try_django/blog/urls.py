@@ -15,7 +15,19 @@ Including another URLconf
 """
 
 from django.urls import path, include
-from .views import blog_post_detail_page
+from .views import (
+    blog_post_create_view,
+    blog_post_detail_view,
+    blog_post_list_view,
+    blog_post_update_view,
+    blog_post_delete_view,
+
+    )
+
 urlpatterns = [
-    path ('detail/<int:post_id>/',blog_post_detail_page),
+    path('detail/',blog_post_list_view),
+    path('post/<str:slug>/', blog_post_detail_view),
+    path('post/<str:slug>/edit', blog_post_update_view),
+    path('post/<str:slug>/delete', blog_post_delete_view),
+    
 ]
