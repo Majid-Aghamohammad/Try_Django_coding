@@ -14,7 +14,7 @@ from .models import BlogPost
 
 def blog_post_create_view(request):
     template_name = 'blog_post_create.html'
-    context =  {'from' : create_form}
+    context =  {'from' : None } #create_form
     return render(request, template_name, context)
 
 
@@ -36,7 +36,7 @@ def blog_post_detail_view(request, slug):
 
 
 
-def blog_post_update_view(request):
+def blog_post_update_view(request,slug):
     obj = get_object_or_404(BlogPost, slug = slug)
     template_name = 'blog_post_detail.html'
     context = {'blog_object': obj}
@@ -44,7 +44,7 @@ def blog_post_update_view(request):
 
 
 
-def blog_post_delete_view(request):
+def blog_post_delete_view(request,slug):
     obj = get_object_or_404(BlogPost, slug = slug)
     template_name = 'blog_post_detail.html'
     context = {'blog_object': obj}
