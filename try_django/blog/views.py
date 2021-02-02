@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from .models import BlogPost
 from .Create_Form import CreatePostForm
@@ -42,9 +45,12 @@ def blog_post_detail_view(request, slug):
 
 
 def blog_post_update_view(request,slug):
-    obj = get_object_or_404(BlogPost, slug = slug)
-    template_name = 'blog_post_detail.html'
-    context = {'blog_object': obj}
+    obj = get_object_or_404(BlogPost, slug=slug)
+    form = CreatePostForm(request.POST or None, instance=obj)
+    if form.is_valid():
+        form.save()
+    template_name = 'blog_post_update.html'
+    context = {'form': form}
     return render(request, template_name, context)
 
 

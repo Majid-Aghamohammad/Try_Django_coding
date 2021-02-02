@@ -6,6 +6,10 @@
     <title>Document</title>
   </head>
   <body>
-    this is update veiw
+    <h1>Update Your Posts</h1>
+    <form method="POST" action="">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Create</button>
+    </form>
   </body>
 </html>
