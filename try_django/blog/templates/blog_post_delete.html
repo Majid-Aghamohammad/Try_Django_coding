@@ -7,5 +7,12 @@
   </head>
   <body>
     this is delete view
+    <h1>Do You Sure Delete this post?</h1>
+    <h2>{{blog_object.title}}</h2>
+    <p>{{blog_object.content}}</p>
+    <form method="POST">
+      {% csrf_token %}
+      <button>Yes</button>
+    </form>
   </body>
 </html>
