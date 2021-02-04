@@ -18,8 +18,9 @@ from .Create_Form import CreatePostForm
 def blog_post_create_view(request):
     form = CreatePostForm(request.POST or None)
     if form.is_valid():
-        print(form.cleaned_data)
+        # print(form.cleaned_data)
         form.save()
+        return redirect("/blog")
     template_name = 'blog_post_create.html'
     context =  {'form' : form } 
     return render(request, template_name, context)
@@ -29,7 +30,7 @@ def blog_post_create_view(request):
 def blog_post_list_view(request):
     obj = BlogPost.objects.all()
     template_name = 'blog_post_list.html'
-    print(obj)
+    # print(obj)
     context = {'objects_list': obj}
     return render(request, template_name, context)
 
@@ -59,7 +60,7 @@ def blog_post_delete_view(request,slug):
     template_name = 'blog_post_delete.html'
     if request.method == "POST":
         obj.delete()
-
+        return redirect("/blog")
     context = {'blog_object': obj}
     return render(request, template_name, context)
 

@@ -8,9 +8,15 @@
   <body>
     {% for obj in objects_list %}
     <li>
-      <h2>{{obj.title}}</h2>
+      <h2>
+        <a href="{{obj.get_absolute_url}}">{{obj.title}}</a>
+      </h2>
       <hr />
     </li>
     {% endfor %}
+
+    <a href="./new">
+      <button>Create New Post</button>
+    </a>
   </body>
 </html>
