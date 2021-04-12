@@ -4,6 +4,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.http import Http404
 from .models import BlogPost
 from .Create_Form import CreatePostForm
+from django.utils import timezone
+
 # Create your views here.
 
 
@@ -28,9 +30,10 @@ def blog_post_create_view(request):
 
 
 def blog_post_list_view(request):
+    # now = timezone.now()
+    # obj = BlogPost.objects.filter(publish_date__lte=now)
     obj = BlogPost.objects.all()
     template_name = 'blog_post_list.html'
-    # print(obj)
     context = {'objects_list': obj}
     return render(request, template_name, context)
 
