@@ -6,15 +6,21 @@ class BlogPostQuerySet(models.QuerySet):
     def published(self):
         now = timezone.now()
         return self.filter(publish_date__lte=now)
+
+
 class BlogPostManager(models.Manager):
+
     def get_queryset(self):
-        return self.filter(self.model, using=self._db)
+        return BlogPostQuerySet(self.model, using=self._db)
 
     def published(self):
         return self.get_queryset().published()
+
+
 class BlogPost(models.Model):
     title        = models.CharField(max_length=255)
     slug         = models.SlugField(unique=True)
+    images       = models.FileField(upload_to= 'images/', blank=True , null=True)
     content      = models.TextField()
     publish_date = models.DateTimeField(auto_now=False, auto_now_add=False , null=True, blank=True)
     timestamp    = models.DateTimeField(auto_now_add=True)
@@ -22,8 +28,7 @@ class BlogPost(models.Model):
 
 
 
-    objects      = BlogPostManager()
-
+    objects = BlogPostManager()
 
 
     class Meta:

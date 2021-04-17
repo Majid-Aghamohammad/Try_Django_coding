@@ -16,10 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import blog.urls
+# Import settings if not imported
+from django.conf import settings
+# Import static if not imported
+from django.conf.urls.static import static
+
  #products.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('products', include(products.urls)),
     path ('blog/', include(blog.urls)),
-]
+] 
+
+
+
+if settings.DEBUG:
+    urlpatterns +=  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
+    urlpatterns +=  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
